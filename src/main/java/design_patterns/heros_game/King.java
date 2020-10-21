@@ -2,8 +2,15 @@ package design_patterns.heros_game;
 
 public class King extends Character {
     private Weapon sword=new Sword();
-    public King() {
-        super(RandomUtil.generateIntInRange(5,15), RandomUtil.generateIntInRange(5,15));
+
+    @Override
+    protected int getInitialPower() {
+        return RandomUtil.generateIntInRange(5,15);
+    }
+
+    @Override
+    protected int getInitialHp() {
+        return RandomUtil.generateIntInRange(5,15);
     }
 
     @Override

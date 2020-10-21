@@ -1,14 +1,23 @@
 package design_patterns.heros_game;
 
-import java.util.Map;
+import lombok.SneakyThrows;
+import org.reflections.Reflections;
+
+import java.lang.reflect.Modifier;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CharacterFactory {
-    private static Map<Integer,Character> characters=Map.of(1,new Hobbit(),
-            2,new Elf(),
-            3,new King(),
-            4,new Knight());
-    public static Character createCharacter(){
-        int characterKey = RandomUtil.generateIntInRange(1, 4);
-        return characters.get(characterKey);
+    private  List<Class<? extends Character>> characters;
+    public CharacterFactory(){
+        Reflections scanner = new Reflections("design_patterns.heros_game");
+        characters = scanner.getSubTypesOf(Character.class)
+                 .stream().filter(type -> !Modifier.isAbstract(type.getModifiers()))
+                .collect(Collectors.toList());
+    }
+    @SneakyThrows
+    public  Character createCharacter(){
+        int characterIndex = RandomUtil.generateIntInRange(0,characters.size());
+        return characters.get(characterIndex).getDeclaredConstructor().newInstance();
     }
 }

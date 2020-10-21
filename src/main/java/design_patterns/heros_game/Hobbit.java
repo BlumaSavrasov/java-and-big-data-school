@@ -1,9 +1,16 @@
 package design_patterns.heros_game;
 
 public class Hobbit extends Character {
-    Hobbit(){
-        super(0,3);
+    @Override
+    protected int getInitialPower() {
+        return 0;
     }
+
+    @Override
+    protected int getInitialHp() {
+        return 3;
+    }
+
     @Override
     void kick(Character c) {
         toCry();
