@@ -1,5 +1,5 @@
 package design_patterns;
-
+@TemplateCode(2)
 public class DoNotCallUsMail implements Mail {
     @Override
     public void sendMail() {

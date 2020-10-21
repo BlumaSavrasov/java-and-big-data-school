@@ -1,5 +1,5 @@
 package design_patterns;
-
+@TemplateCode(1)
 public class WelcomeMail implements Mail {
     @Override
     public void sendMail() {
