@@ -6,7 +6,7 @@ import org.reflections.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.Set;
 
-public class InjectByTypeObjectConfiguratorImpl implements ObjectConfigurator {
+public class InjectByTypeObjectConfigurator implements ObjectConfigurator {
     @Override
     @SneakyThrows
     public void configure(Object t) {
@@ -14,7 +14,9 @@ public class InjectByTypeObjectConfiguratorImpl implements ObjectConfigurator {
         for (Field field : fields) {
             if(field.isAnnotationPresent(InjectByType.class)){
                 Class<?> type = field.getType();
-                field.set(t,type.getDeclaredConstructor().newInstance());
+                field.setAccessible(true);
+               // field.set(t,type.getDeclaredConstructor().newInstance());
+                field.set(t,ObjectFactory.getInstance().createObject(type));
             }
 
         }

@@ -16,6 +16,8 @@ public class ObjectFactory {
     public static ObjectFactory getInstance(){
         return ourInstance;
     }
+
+
     @SneakyThrows
     private ObjectFactory(){
         Reflections scanner = new Reflections("my_spring");
@@ -29,15 +31,26 @@ public class ObjectFactory {
 
     @SneakyThrows
     public <T> T createObject(Class<T> clazz){
-        if(clazz.isInterface())
-            clazz= config.getImplClass(clazz);
-        T t= clazz.getDeclaredConstructor().newInstance();
-        /*for (ObjectConfigurator configurator : configurators) {
-            configurator.configure(t);
-        }**/
-        configurators.forEach(configurator->configurator.configure(t));
-
+        clazz = resolveImpl(clazz);
+        T t = create(clazz);
+        configure(t);
         return t;
+    }
+
+    private <T> void configure(T t) {
+        configurators.forEach(configurator->configurator.configure(t));
+    }
+
+
+    private <T> T create(Class<T> clazz) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
+        T t= clazz.getDeclaredConstructor().newInstance();
+        return t;
+    }
+
+    private <T> Class<T> resolveImpl(Class<T> clazz) {
+        if(clazz.isInterface())
+            clazz = config.getImplClass(clazz);
+        return clazz;
     }
 
 }
