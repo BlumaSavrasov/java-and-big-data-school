@@ -3,8 +3,11 @@ package my_spring;
 import com.sun.jdi.InterfaceType;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 @AllArgsConstructor
@@ -34,7 +37,17 @@ public class ObjectFactory {
         clazz = resolveImpl(clazz);
         T t = create(clazz);
         configure(t);
+       initInvoke(t);
         return t;
+    }
+    @SneakyThrows
+
+
+    private <T> void initInvoke(T t)  {
+        Set<Method> methods = ReflectionUtils.getAllMethods(t.getClass(), method -> method.getName().startsWith("init"));
+        for (Method method : methods) {
+            method.invoke(t);
+        }
     }
 
     private <T> void configure(T t) {

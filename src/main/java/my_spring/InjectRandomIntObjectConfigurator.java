@@ -10,15 +10,13 @@ public class InjectRandomIntObjectConfigurator implements ObjectConfigurator {
     @Override
     @SneakyThrows
     public void configure(Object t) {
-        Set<Field> fields = ReflectionUtils.getAllFields(t.getClass());
+        Set<Field> fields = ReflectionUtils.getAllFields(t.getClass(),field -> field.isAnnotationPresent(InjectRandomInt.class));
         for (Field field : fields) {
-            if(field.isAnnotationPresent(InjectRandomInt.class)) {
                 InjectRandomInt annotation = field.getAnnotation(InjectRandomInt.class);
                 int min = annotation.min();
                 int max = annotation.max();
                 field.setAccessible(true);
                 field.setInt(t, RandomUtil.getRandomInRange(min, max));
-            }
         }
     }
 }
