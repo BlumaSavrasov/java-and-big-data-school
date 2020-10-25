@@ -1,4 +1,4 @@
-package my_spring;
+package my_spring.i_robot;
 
 import java.util.Random;
 

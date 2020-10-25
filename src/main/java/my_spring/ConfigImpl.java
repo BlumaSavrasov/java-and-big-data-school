@@ -1,16 +1,29 @@
 package my_spring;
 
+import lombok.Getter;
+import org.reflections.Reflections;
+
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Set;
+@Getter
 public class ConfigImpl implements Config {
-    Map<Class,Class> map=new HashMap<>();
-    public ConfigImpl(){
-        map.put(Speaker.class,ConsoleSpeaker.class);
-        map.put(Cleaner.class,CleanerImpl.class);
+    private Reflections scanner;
+    Map<Class,Class> map;
+    public ConfigImpl(String packageToScan,Map<Class,Class> map){
+        this.map=map;
+        this.scanner = new Reflections(packageToScan);
     }
     @Override
-    public <T> Class<T> getImplClass(Class<T> clazz) {
-        return map.get(clazz);
+    public <T> Class<? extends T> getImplClass(Class<T> ifc) {
+         return map.computeIfAbsent(ifc,aClass -> {
+             Set<Class<? extends T>> classes = scanner.getSubTypesOf(ifc);
+            if(classes.size()!=1)
+            {
+                throw new RuntimeException(ifc+"has 0 or more then 1 implementations pls update your config");
+            }
+            return classes.iterator().next();
+         });
+
     }
 }

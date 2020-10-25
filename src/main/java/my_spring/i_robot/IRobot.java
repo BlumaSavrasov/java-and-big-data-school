@@ -1,4 +1,11 @@
-package my_spring;
+package my_spring.i_robot;
+
+import my_spring.Application;
+import my_spring.ApplicationContext;
+import my_spring.InjectByType;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
 
 public class IRobot {
     @InjectByType
@@ -10,12 +17,13 @@ public class IRobot {
         cleaner.cleanRoom();
         speaker.speak("finished cleaning");
     }
-
+    @PostConstruct
     public void init(){
         System.out.println(speaker.getClass().getName());
     }
     public static void main(String[] args) {
-        IRobot robot = ObjectFactory.getInstance().createObject(IRobot.class);
+        ApplicationContext context = Application.run("my_spring", new HashMap<>());
+        IRobot robot = context.getObject(IRobot.class);
         robot.cleanRoom();
     }
 }
