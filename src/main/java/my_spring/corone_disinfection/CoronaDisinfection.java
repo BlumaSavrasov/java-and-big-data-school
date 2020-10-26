@@ -2,7 +2,7 @@ package my_spring.corone_disinfection;
 
 import my_spring.InjectByType;
 import my_spring.ObjectFactory;
-
+@Deprecated
 public class CoronaDisinfection {
     @InjectByType
     private Announcer announcer;

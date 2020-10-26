@@ -4,7 +4,7 @@ import my_spring.InjectProperty;
 import my_spring.Singleton;
 
 @Singleton
-@Deprecated
+
 public class RecommenderImpl implements Recommender {
     @InjectProperty
     private String alcohol;
