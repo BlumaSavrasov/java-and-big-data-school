@@ -14,19 +14,22 @@ public class DeprecatedHandlerProxyConfigurator implements ProxyConfigurator {
         if(implClass.isAnnotationPresent(Deprecated.class)||methodAnnotated) {
             if(implClass.getInterfaces().length==0){
                 return Enhancer.create(implClass, (net.sf.cglib.proxy.InvocationHandler) (proxy, method, args) -> {
-                    return getInvocationHandlerLogic(t, method, args);
+                    return getInvocationHandlerLogic(t, implClass, method, args);
                 });
             }
             return Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(), (proxy, method, args) -> {
-                Method classMethod = implClass.getMethod(method.getName(), method.getParameterTypes());
-                return implClass.isAnnotationPresent(Deprecated.class) || classMethod.isAnnotationPresent(Deprecated.class) ? getInvocationHandlerLogic(t, method, args) : method.invoke(t, args);
+                return getInvocationHandlerLogic(t, implClass, method, args);
             });
         }
         return t;
     }
 
-    private Object getInvocationHandlerLogic(Object t, Method method, Object[] args) throws IllegalAccessException, InvocationTargetException {
-        System.out.println("******** you using deprecated method *******");
+    private Object getInvocationHandlerLogic(Object t, Class implClass, Method method, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Method classMethod = implClass.getMethod(method.getName(), method.getParameterTypes());
+        if (implClass.isAnnotationPresent(Deprecated.class) || classMethod.isAnnotationPresent(Deprecated.class)) {
+            System.out.println("******** you using deprecated method *******");
+        }
         return method.invoke(t, args);
     }
+
 }
