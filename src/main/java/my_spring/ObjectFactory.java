@@ -24,7 +24,6 @@ public class ObjectFactory {
 
     @SneakyThrows
     public ObjectFactory(ApplicationContext context){
-       //context.config= new ConfigImpl("my_spring",new HashMap<>());
         this.context=context;
         for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
             configurators.add(aClass.getDeclaredConstructor().newInstance());
