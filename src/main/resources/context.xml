@@ -15,4 +15,12 @@
             </list>
         </property>
     </bean>
+    <bean id="talkingRobot" class="real_spring.TalkingRobot" init-method="talk">
+        <property name="quoters">
+            <list value-type="real_spring.Quoter">
+                <ref bean="shakeSpearQuoter"></ref>
+                <ref bean="terminatorQuoter"></ref>
+            </list>
+        </property>
+    </bean>
 </beans>
