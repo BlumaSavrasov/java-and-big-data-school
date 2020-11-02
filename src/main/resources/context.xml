@@ -2,25 +2,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="shakeSpearQuoter" class="real_spring.ShakeSpearQuoter">
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean class="real_spring.InjectRandomIntAnnotationBeanPostProcessor"/>
+    <bean class="real_spring.BeanDefinitionAnalyzerBeanFactoryPostProcessor"/>
+    <bean class="real_spring.DeprecatedClassAnnotationBeanFactoryPostProcessor"/>
+    <bean id="shakeSpearQuoter" class="real_spring.ShakeSpearQuoter" >
         <property name="message" value="to be, or not to be"/>
     </bean>
-    <bean id="terminatorQuoter" class="real_spring.TerminatorQuoter">
+    <bean id="terminatorQuoter" class="real_spring.TerminatorQuoter" >
         <property name="messages">
             <list value-type="java.lang.String">
                 <value>Hasta la vista,baby</value>
                 <value>I like this car</value>
                 <value>Come with me if you want to live</value>
                 <value>You are terminated</value>
+                <ref bean="string"/>
             </list>
         </property>
     </bean>
-    <bean id="talkingRobot" class="real_spring.TalkingRobot" init-method="talk">
+    <bean id="talkingRobot" class="real_spring.TalkingRobot">
         <property name="quoters">
             <list value-type="real_spring.Quoter">
-                <ref bean="shakeSpearQuoter"></ref>
-                <ref bean="terminatorQuoter"></ref>
+                <ref bean="shakeSpearQuoter"/>
+                <ref bean="terminatorQuoter"/>
             </list>
         </property>
+    </bean>
+    <bean id="string" class="java.lang.String">
+        <constructor-arg value="Trust-Me"/>
     </bean>
 </beans>

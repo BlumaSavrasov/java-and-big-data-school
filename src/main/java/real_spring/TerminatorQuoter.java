@@ -4,6 +4,7 @@ import lombok.Setter;
 
 import java.util.List;
 @Setter
+@DeprecatedClass(newClass = T1000.class)
 public class TerminatorQuoter implements Quoter {
     List<String> messages;
     @Override

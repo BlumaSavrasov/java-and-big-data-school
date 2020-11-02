@@ -3,6 +3,7 @@ package my_spring.i_robot;
 import my_spring.Application;
 import my_spring.ApplicationContext;
 import my_spring.InjectByType;
+import my_spring.ObjectFactory;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;

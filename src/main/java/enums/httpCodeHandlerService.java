@@ -12,6 +12,5 @@ public class httpCodeHandlerService {
         service.handleHttpCode(301);
         service.handleHttpCode(401);
         service.handleHttpCode(501);
-
     }
 }
