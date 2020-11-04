@@ -1,4 +1,5 @@
-package real_spring.labs;
+package real_spring.dao_service_lab;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,5 +13,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Qualifier
 @Repository
 @Autowired
-public @interface Derby {
+public @interface DeutschBank {
+    DBType value();
 }

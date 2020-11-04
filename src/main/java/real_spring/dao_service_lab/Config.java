@@ -1,4 +1,4 @@
-package real_spring.labs;
+package real_spring.dao_service_lab;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
