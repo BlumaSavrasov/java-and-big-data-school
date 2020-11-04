@@ -1,14 +1,23 @@
 package real_spring;
 
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 @Setter
-@DeprecatedClass(newClass = T1000.class)
+@Component
+//@DeprecatedClass(newClass = T1000.class)
 public class TerminatorQuoter implements Quoter {
     List<String> messages;
+    @Value("${terminator}")
+    public void setMessages(String[] messages) {
+        this.messages = Arrays.asList(messages);
+    }
+
     @Override
     public void sayQuote() {
-        messages.stream().forEach(message-> System.out.println(message));
+        messages.forEach(System.out::println);
     }
 }
