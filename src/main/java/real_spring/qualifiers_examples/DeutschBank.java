@@ -1,4 +1,4 @@
-package real_spring.dao_service_lab;
+package real_spring.qualifiers_examples;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

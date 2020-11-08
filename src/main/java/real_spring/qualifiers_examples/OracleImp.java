@@ -1,6 +1,6 @@
-package real_spring.dao_service_lab;
+package real_spring.qualifiers_examples;
 
-import static real_spring.dao_service_lab.DBType.ORACLE;
+import static real_spring.qualifiers_examples.DBType.ORACLE;
 
 @DeutschBank(ORACLE)
 public class OracleImp implements Dao {

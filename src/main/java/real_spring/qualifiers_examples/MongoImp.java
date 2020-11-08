@@ -1,6 +1,6 @@
-package real_spring.dao_service_lab;
+package real_spring.qualifiers_examples;
 
-import static real_spring.dao_service_lab.DBType.MONGO;
+import static real_spring.qualifiers_examples.DBType.MONGO;
 
 @DeutschBank(MONGO)
 public class MongoImp implements Dao {

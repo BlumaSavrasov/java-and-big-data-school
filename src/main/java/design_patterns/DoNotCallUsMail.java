@@ -1,5 +1,9 @@
 package design_patterns;
+
+import org.springframework.stereotype.Component;
+
 @TemplateCode(2)
+@Component
 public class DoNotCallUsMail implements Mail {
     @Override
     public void sendMail() {
